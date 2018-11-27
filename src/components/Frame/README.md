@@ -503,19 +503,19 @@ class FrameExample extends React.Component {
             },
             {
               label: 'Customers',
-              icon: customers,
+              icon: 'customers',
             },
             {
               label: 'Analytics',
-              icon: analytics,
+              icon: 'analytics',
             },
             {
               label: 'Marketing',
-              icon: marketing,
+              icon: 'marketing',
             },
             {
               label: 'Apps',
-              icon: apps,
+              icon: 'apps',
             },
           ]}
         />
@@ -538,7 +538,7 @@ class FrameExample extends React.Component {
           items={[
             {
               label: 'Settings',
-              icon: settings,
+              icon: 'settings',
             },
           ]}
         />
