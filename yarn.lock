@@ -316,12 +316,15 @@
     mime-types "2.1.12"
     request "2.78.0"
 
-"@shopify/polaris-icons-internal@^1.0.9":
-  version "1.0.9"
-  resolved "https://packages.shopify.io/shopify/node/npm/@shopify/polaris-icons-internal/-/polaris-icons-internal-1.0.9.tgz#add0e956a4d910f7b629dd788e11aa41ac0ab721"
-  integrity sha1-rdDpVqTZEPe2Kd14jhGqQawKtyE=
+"@shopify/polaris-icons-internal@^1.0.10":
+  version "1.0.10"
+  resolved "https://packages.shopify.io/shopify/node/npm/@shopify/polaris-icons-internal/-/polaris-icons-internal-1.0.10.tgz#ffb1986cd72a4925a3e5f41d352a3710b67cab7d"
+  integrity sha1-/7GYbNcqSSWj5fQdNSo3ELZ8q30=
   dependencies:
     "@shopify/images" "^1.1.5"
+    ajv "^6.5.5"
+    glob "^7.1.3"
+    js-yaml "^3.12.0"
     rollup "^0.66.5"
 
 "@shopify/polaris-tokens@^1.2.0":
@@ -948,6 +951,16 @@ ajv@^6.5.3:
   version "6.5.3"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.3.tgz#71a569d189ecf4f4f321224fecb166f071dd90f9"
   integrity sha512-LqZ9wY+fx3UMiiPd741yB2pj3hhil+hQc8taf4o2QGRFpWgZ2V5C8HA165DY9sS3fJwsk7uT7ZlFEyC3Ig3lLg==
+  dependencies:
+    fast-deep-equal "^2.0.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
+ajv@^6.5.5:
+  version "6.5.5"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.5.tgz#cf97cdade71c6399a92c6d6c4177381291b781a1"
+  integrity sha512-7q7gtRQDJSyuEHjuVgHoUa2VuemFiCMrfQc9Tc08XTAc4Zj/5U1buQJ0HU6i7fKjXU09SVgSmxa4sLvuvS8Iyg==
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
@@ -6700,6 +6713,18 @@ glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@~7.1.1:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   integrity sha512-MJTUg1kjuLeQCJ+ccE4Vpa6kKVXkPYJ2mOCQyUuKLcLQsdrMCpBPUi8qVE6+YuaJkozeA9NusTAw3hLr8Xe5EQ==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
+
+glob@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.3.tgz#3960832d3f1574108342dafd3a67b332c0969df1"
+  integrity sha512-vcfuiIxogLV4DlGBHIUOwI0IbrJ8HWPc4MU7HzviGeNho/UJDfi6B5p3sHeWIQ0KGIU0Jpxi5ZHxemQfLkkAwQ==
   dependencies:
     fs.realpath "^1.0.0"
     inflight "^1.0.4"
