@@ -206,10 +206,15 @@ function Icon({
   } else {
     const iconSource =
       typeof source === 'string' ? BUNDLED_ICONS[source] : source;
+    console.log(BUNDLED_ICONS, source);
     contentMarkup = iconSource &&
-        <span
+      iconSource.viewBox &&
+      iconSource.body && (
+        <svg
           className={styles.Svg}
-          dangerouslySetInnerHTML={{__html: iconSource}}
+          viewBox={iconSource.viewBox}
+          dangerouslySetInnerHTML={{__html: iconSource.body}}
+          focusable="false"
           aria-hidden="true"
         />
       );
