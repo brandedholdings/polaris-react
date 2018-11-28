@@ -131,7 +131,7 @@ function parseMarkdown(files) {
   }
 
   console.log();
-  console.log('🔎 Parsing examples in component README.md files complete');
+  console.log('✅ Parsing examples in component README.md files complete');
 
   return parsedExamples;
 }
