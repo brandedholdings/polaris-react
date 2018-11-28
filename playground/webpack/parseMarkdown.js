@@ -55,23 +55,37 @@ module.exports = function loader() {
       data[readmeIdx].examples[exampleIdx].code.toString(),
   );
 
-  // codeInvoker is a utility function that is called by example code functions
-  // at runtime to generate a function that is bound to an arbitary scope.
-  // This is because we only have access all to the Polaris module and it's
-  // exports at runtime.
+  // Example code does not have any scope attached to it by default. It boldly
+  // states `<Button>An example Button</Button>`, blindly trusting that `Button`
+  // is available in its scope.
+  //
+  // codeInvoker is responsible for providing a scope for an example function
+  // so that it will work. It does this by creating a new fuction with the scope
+  // defined as parameters and then calling that new function.
+  // Assuming it is called with
+  // codeInvoker(function() { return (<Button>Hi</Button>) } {React, Button})
+  // It will transform:
+  // function() { return (<Button>Hi</Button>) }
+  // into:
+  // function(React, Button) { return (<Button>Hi</Button>) }
+  // and then call that function with React and Button as the arguments
   const codeInvoker = function(fn, scope) {
     const scopeKeys = Object.keys(scope);
     const scopeValues = scopeKeys.map((key) => scope[key]);
 
+    // Replace the empty parameter list with a list based upon the scope.
+    // We can't use a placeholder in the parmeter list and search/replace that
+    // because the placeholder's name may be mangled when the code is minified.
     const fnString = fn
       .toString()
-      .replace('SCOPE_VARIABLES_PLACEHOLDER', scopeKeys.join(', '));
+      .replace(/^function(\s*)\(\)/, `function$1(${scopeKeys.join(', ')})`);
 
-    // eslint-disable-next-line no-eval
-    return eval(`(${fnString})`)(...scopeValues);
+    // Use apply here as it compiles to something shorter than the spread operator
+    // eslint-disable-next-line no-eval,prefer-spread
+    return eval(`(${fnString})`).apply(null, scopeValues);
   };
 
-  return `const codeInvoker = ${codeInvoker}; export const components = ${stringyData};`;
+  return `const codeInvoker = ${codeInvoker};\nexport const components = ${stringyData};`;
 };
 
 const exampleForRegExp = /<!-- example-for: ([\w\s,]+) -->/u;
@@ -240,8 +254,16 @@ return ${classMatch[1]};
     }`;
   }
 
+  // The eagle-eyed amongst you will spoty that the function passed to
+  // codeInvoker has no arguments. This is because the codeInvoker function
+  // shall dynamically modify the given function, adding items from the current
+  // scope as arguments. We can't do this with some kind of placeholder value
+  // (e.g. codeInvoker(function(PLACEHOLDER) {}, scope) and then replace the
+  // PLACEHOLDER because its name will get mangled as part of minification in
+  // production mode and thus searching for "PLACEHOLDER in the function's
+  // string representation shall fail.
   return `function (scope) {
-    return codeInvoker(function(SCOPE_VARIABLES_PLACEHOLDER) {
+    return codeInvoker(function () {
       ${wrappedCode}
     }, scope);
   }`;
