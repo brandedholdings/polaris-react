@@ -15,3 +15,5 @@ node_modules
 *.scss.d.ts
 /playground/build
 /src/styles/polaris-tokens
+.idea
+*.iml
